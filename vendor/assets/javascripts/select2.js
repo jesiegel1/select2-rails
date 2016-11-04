@@ -4233,7 +4233,7 @@ S2.define('select2/dropdown/attachBody',[
     $(window).off(scrollEvent + ' ' + resizeEvent + ' ' + orientationEvent);
   };
 
-  AttachBody.prototype._positionDropdown = function () {
+  AttachBody.prototype._positionDropdown = function (forceAbove) {
     var $window = $(window);
 
     var isCurrentlyAbove = this.$dropdown.hasClass('select2-dropdown--above');
@@ -4271,6 +4271,13 @@ S2.define('select2/dropdown/attachBody',[
 
     // Determine what the parent element is to use for calciulating the offset
     var $offsetParent = this.$dropdownParent;
+
+    // Add ability to force dropdown position to below
+    forceAbove = typeof forceAbove !== 'undefined' ? forceAbove : false;
+    if (forceAbove) {
+      enoughRoomAbove = false;
+      enoughRoomBelow = true;
+    }
 
     // For statically positoned elements, we need to get the element
     // that is determining the offset
